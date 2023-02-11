@@ -24,6 +24,7 @@ function assertion($ln)
         case 'LT':
         case 'GT':
         case 'EQ':
+            //TODO: assert same type
             assert_compare($ln);
             break;
         case 'AND':
@@ -37,7 +38,8 @@ function assertion($ln)
             assert_i2ch($ln);
             break;
         case 'STR2INT':
-            assert_s2i($ln);
+        case 'GETCHAR':
+            assert_s2i_gchar($ln);
             break;
         case 'MOVE':
             assert_move($ln);
@@ -50,11 +52,13 @@ function assertion($ln)
         case 'PUSHFRAME':
         case 'POPFRAME':
         case 'RETURN':
+        case 'BREAK':
             assert_no_args($ln);
             break;
-
+        case 'WRITE':
+        case 'DPRINT':
         case 'PUSHS':
-            //
+            assert_only_sym($ln);
             break;
 
         case 'JUMP':
@@ -63,16 +67,16 @@ function assertion($ln)
             assert_label($ln);
             break;
         case 'READ':
-            //
+            assert_read($ln);
             break;
-        case 'WRITE':
-            //
-            break;
+
         case 'STRLEN':
             break;
         case 'CONCAT':
-        case 'GETCHAR':
+            assert_concat($ln);
+            break;
         case 'SETCHAR':
+            assert_schar($ln);
             break;
         case 'TYPE':
             break;
@@ -82,10 +86,7 @@ function assertion($ln)
         case 'JUMPNEQ':
             break;
         case 'EXIT':
-            break;
-        case 'DPRINT':
-            break;
-        case 'BREAK':
+            assert_exit($ln);
             break;
 
         default:
