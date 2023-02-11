@@ -101,7 +101,7 @@ function assert_move($ln)
 {
     assert_arg_count($ln, MOVE);
     assert_variable($ln);
-    assert_symbol($ln, 1, BOOL);
+    assert_symbol($ln, 1);
 }
 
 function assert_read($ln)
@@ -160,11 +160,15 @@ function assert_variable($ln)
 function assert_symbol($ln, $count = 1, $type = ANY, $offset = 2)
 {
 
+   
+    //TODO : INITIALIZE OF EMPTY VARIABLE
     $symbols = array_slice($ln, $offset, $offset + $count);
     $regex = get_regex($type);
 
     for ($i = 0; $i < $count; $i++) {
+     
         if (!preg_match($regex, $symbols[$i])) {
+            
             //TODO: correct code
             exit(23);
         }
@@ -186,6 +190,7 @@ function assert_exit_symbol($ln)
         }
 
         $value = substr(strstr($ln[$offset], '@'),1);
+        //TODO: magic number
         if ($value > 49 || $value <0) {
             exit(57);
         }
@@ -203,6 +208,7 @@ function assert_label($ln)
 }
 function get_regex($type)
 {
+    //TODO: escape characters
     $varreg = '^((LF|GF|TF)@([_\-$&%*!?]|[A-Z]|[a-z]|[0-9])+)$';
     switch ($type) {
         case ANY:
@@ -216,7 +222,8 @@ function get_regex($type)
             break;
         case STR:
             //TODO: check first part of regex
-            $regex = '/^(str@.*)$|' . $varreg . '/';
+            $regex = '/^(string@.*)$|' . $varreg . '/';
+            
             break;
         case LABEL:
             $regex = '/^([_\-$&%*!?]|[A-Z]|[a-z]|[0-9])+$/';

@@ -8,11 +8,10 @@ function array_push_var()
 }
 
 function array_push_symbol($ln)
-{global $array;
-    foreach (array_slice($ln,1) as $a){
+{
+    global $array;
+    foreach (array_slice($ln, 1) as $a) {
         //$type=get_type();
         array_push($array, "var");
     }
 }
-
-

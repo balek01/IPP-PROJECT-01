@@ -15,6 +15,7 @@ while ($ln = fgets(STDIN)) {
     if ($ln == '') {
         continue;
     }
+    //TODO: multiple headers
     if ($header===false) {
         $header = assert_header($ln);
         continue;
@@ -29,7 +30,7 @@ while ($ln = fgets(STDIN)) {
 }
 
 print_($xml);
-exit(0);
+
 
 
 
