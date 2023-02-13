@@ -32,7 +32,7 @@ while ($ln = fgets(STDIN)) {
 print_($xml);
 exit(0);
 
-//todo: rename 
+
 function cultivate_input($ln)
 {
     if (str_contains($ln, "#")) {

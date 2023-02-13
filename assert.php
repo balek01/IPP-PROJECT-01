@@ -15,7 +15,6 @@ function assertion($ln)
         case 'LT':
         case 'GT':
         case 'EQ':
-            //TODO: assert same type
             assert_compare($ln);
             break;
         case 'AND':
@@ -75,7 +74,6 @@ function assertion($ln)
             assert_exit($ln);
             break;
         default:
-            //TODO: correct code
             exit(EXIT_OPCODE);
             break;
     }

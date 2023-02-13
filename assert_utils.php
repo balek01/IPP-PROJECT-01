@@ -149,8 +149,6 @@ function assert_arg_count($ln, $expected)
 function assert_variable($ln)
 {
     $var = $ln[1];
-
-    //TODO: part after @
     if (!preg_match('/^((LF|GF|TF)@(([_\-$&;%*!?]|[A-Z]|[a-z]|[áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ]))+([_\-$&%*!?]|[A-Z]|[a-z]|[0-9]|[áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ])*)$/', $var)) {
         exit(EXIT_LEXSYN);
     }
@@ -158,9 +156,6 @@ function assert_variable($ln)
 
 function assert_symbol($ln, $count = 1, $type = ANY, $offset = 2)
 {
-
-
-    //TODO : INITIALIZE OF EMPTY VARIABLE
     $symbols = array_slice($ln, $offset, $offset + $count);
     $regex = get_regex($type);
     
@@ -193,7 +188,6 @@ function assert_label($ln, $count = 1)
 
 function get_regex($type)
 {
-    //TODO: escape characters
     $varreg = '^((LF|GF|TF)@(([_\-;$&%*!?]|[A-Z]|[a-z]|[áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ]))+([_\-$&%*!?]|[A-Z]|[a-z]|[0-9]|[áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ])*)$';
     $intreg = '(^(int@[-|+]?[0-9]+)$)';
     $boolreg = '(^(bool@false|bool@true)$)';
