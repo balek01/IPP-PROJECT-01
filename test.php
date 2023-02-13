@@ -29,7 +29,8 @@ class Tester {
 
   private function pass(string $name, int $level) {
     $this->passed++;
-    echo indentation($level) . green($name) . "\n";
+    echo ".";
+  //  echo indentation($level) . green($name) . "\n";
   }
 
   private function fail(string $name, int $level) {
@@ -69,7 +70,7 @@ class Tester {
     } else {
       $this->fail($name, $level);
       echo "Expected:\n";
-      echo file_get_contents($out) . "\n";
+      echo file_get_contents($out). "\n";
       echo "Got:\n";
       echo file_get_contents("tmp/out.xml") . "\n";
     }

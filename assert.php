@@ -1,25 +1,16 @@
 <?php
 include "assert_utils.php";
-include "get_array.php";
-$order = 1;
+
 function assertion($ln)
 {
-    global $order;
-    $ln = explode(' ', $ln);
-    $scope = "TODO";
-    $opcode = strtoupper($ln[0]);
-
-
-
+    $ln[0] = strtoupper($ln[0]);
+    $opcode = $ln[0];
     switch ($opcode) {
         case 'ADD':
         case 'SUB':
         case 'MUL':
         case 'IDIV':
             assert_arithmetic($ln);
-
-            array_push_var();
-            array_push_symbol($ln);
             break;
         case 'LT':
         case 'GT':
@@ -35,9 +26,11 @@ function assertion($ln)
             assert_not($ln);
             break;
         case 'INT2CHAR':
+        case 'TYPE':
+        case 'STRLEN':
             assert_i2ch($ln);
             break;
-        case 'STR2INT':
+        case 'STRI2INT':
         case 'GETCHAR':
             assert_s2i_gchar($ln);
             break;
@@ -60,17 +53,13 @@ function assertion($ln)
         case 'PUSHS':
             assert_only_sym($ln);
             break;
-
         case 'JUMP':
         case 'CALL':
         case 'LABEL':
-            assert_label($ln);
+            assert_only_label($ln);
             break;
         case 'READ':
             assert_read($ln);
-            break;
-
-        case 'STRLEN':
             break;
         case 'CONCAT':
             assert_concat($ln);
@@ -78,32 +67,18 @@ function assertion($ln)
         case 'SETCHAR':
             assert_schar($ln);
             break;
-        case 'TYPE':
-            break;
-
         case 'JUMPIFEQ':
-            break;
-        case 'JUMPNEQ':
+        case 'JUMPIFNEQ':
+            assert_jumpif($ln);
             break;
         case 'EXIT':
             assert_exit($ln);
             break;
-
         default:
             //TODO: correct code
-            exit(22);
+            exit(EXIT_OPCODE);
             break;
     }
 
-    /*
-    $array =  array(
-        $order,
-        $scope,
-        $opcode => array(
-                $type => $value
-    
-        )
-    );
-    $order++;*/
     return $ln;
 }
