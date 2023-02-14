@@ -1,7 +1,7 @@
 <?php
 include "assert_utils.php";
 
-function assertion($ln)
+function assertion(&$ln)
 {
     $ln[0] = strtoupper($ln[0]);
     $opcode = $ln[0];

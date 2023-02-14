@@ -114,14 +114,14 @@ function assert_concat($ln)
 {
     assert_arg_count($ln, CON);
     assert_variable($ln);
-    assert_symbol($ln, 2,/* STR*/);
+    assert_symbol($ln, 2);
 }
 
 function  assert_type_slen($ln)
 {
     assert_arg_count($ln, SLEN);
     assert_variable($ln);
-    assert_symbol($ln, 1/*, STR*/);
+    assert_symbol($ln, 1);
 }
 
 function assert_jumpif($ln)
@@ -149,6 +149,7 @@ function assert_arg_count($ln, $expected)
 function assert_variable($ln)
 {
     $var = $ln[1];
+    //variable regex ((LF|GF|TF)@{anything but number}{anything} 
     if (!preg_match('/^((LF|GF|TF)@(([_\-$&;%*!?]|[A-Z]|[a-z]|[áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ]))+([_\-$&%*!?]|[A-Z]|[a-z]|[0-9]|[áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ])*)$/', $var)) {
         exit(EXIT_LEXSYN);
     }
@@ -156,9 +157,10 @@ function assert_variable($ln)
 
 function assert_symbol($ln, $count = 1, $type = ANY, $offset = 2)
 {
+    //get only symbols from line
     $symbols = array_slice($ln, $offset, $offset + $count);
     $regex = get_regex($type);
-    
+
     for ($i = 0; $i < $count; $i++) {
 
         if (!preg_match($regex, $symbols[$i])) {
@@ -175,7 +177,6 @@ function assert_only_label($ln)
 
 function assert_label($ln, $count = 1)
 {
-
     $offset = 1;
 
     $regex = get_regex(LABEL);
@@ -188,6 +189,7 @@ function assert_label($ln, $count = 1)
 
 function get_regex($type)
 {
+    //variable regex ((LF|GF|TF)@{anything but number}{anything} 
     $varreg = '^((LF|GF|TF)@(([_\-;$&%*!?]|[A-Z]|[a-z]|[áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ]))+([_\-$&%*!?]|[A-Z]|[a-z]|[0-9]|[áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ])*)$';
     $intreg = '(^(int@[-|+]?[0-9]+)$)';
     $boolreg = '(^(bool@false|bool@true)$)';
@@ -195,7 +197,7 @@ function get_regex($type)
     $strreg = '(^string@(?:[^\\\\]|\\\\\\d{3})*$)';
     switch ($type) {
         case ANY:
-            $regex = '/'.$varreg.'|(^nil@nil$)|' . $intreg . '|' . $boolreg . '|' .$strreg. '/';
+            $regex = '/' . $varreg . '|(^nil@nil$)|' . $intreg . '|' . $boolreg . '|' . $strreg . '/';
             break;
         case INT:
             $regex = '/' . $intreg . '|' . $varreg . '/';
@@ -204,13 +206,13 @@ function get_regex($type)
             $regex = '/' . $boolreg . '|' . $varreg . '/';
             break;
         case STR:
-            $regex = '/'.$strreg.'|' . $varreg . '/';
+            $regex = '/' . $strreg . '|' . $varreg . '/';
             break;
         case LABEL:
             $regex = '/' . $labelreg . '/';
             break;
         default:
-            # code...
+            exit(EXIT_INTERNAL_ERROR);
             break;
     }
 
@@ -219,6 +221,8 @@ function get_regex($type)
 
 function assert_header($ln)
 {
-    ($ln != '.IPPcode23') ? exit(EXIT_HEADER) : null;
-    return true;
+    global $header;
+    if ($ln != '.IPPcode23')  exit(EXIT_HEADER);
+    $header = true;
+    return $header;
 }
