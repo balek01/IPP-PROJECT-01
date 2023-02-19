@@ -78,7 +78,7 @@ class Tester {
 
   private function testDir(string $path, int $level) {
     if ($path !== "") {
-      echo indentation($level) . blue($path) . "\n";
+      echo  "\n". indentation($level) . blue($path) . "\n";
     }
     $dir = opendir("./tests/$path");
     while ($file = readdir($dir)) {

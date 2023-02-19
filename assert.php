@@ -3,6 +3,7 @@ include "assert_utils.php";
 
 function assertion(&$ln)
 {
+   
     $ln[0] = strtoupper($ln[0]);
     $opcode = $ln[0];
     switch ($opcode) {
@@ -74,7 +75,7 @@ function assertion(&$ln)
             assert_exit($ln);
             break;
         default:
-            exit(EXIT_OPCODE);
+            exit(Exit_Code::OPCODE);
             break;
     }
 

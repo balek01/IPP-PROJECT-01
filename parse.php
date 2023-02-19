@@ -2,18 +2,22 @@
 include 'xmlcreator.php';
 include 'assert.php';
 include 'parse_utils.php';
+include 'check_parameters.php';
+
+abstract class Exit_Code
+{
+    const 
+        OK = 0,
+        HEADER = 21,
+        OPCODE = 22,
+        LEXSYN = 23,
+        PARAM = 23,
+        INTERNAL_ERROR = 99;
+}
 
 ini_set('display_errors', 'stderr');
+check_parameters($argv);
 
-const EXIT_OPCODE = 22;
-const EXIT_HEADER = 21;
-const EXIT_LEXSYN = 23;
-const EXIT_INTERNAL_ERROR = 99;
-
-// TODO no input
-if (sizeof($argv) > 1) {
-    ($argv[1] === "--help") ? print_help() : exit(10);
-}
 $header = false;
 
 while ($ln = fgets(STDIN)) {
@@ -24,7 +28,7 @@ while ($ln = fgets(STDIN)) {
     if ($ln == '')  continue;
 
     if ($header === false) {
-         assert_header($ln);
+        assert_header($ln);
         continue;
     }
 
@@ -35,4 +39,4 @@ while ($ln = fgets(STDIN)) {
 }
 
 print_xml($xml);
-exit(0);
+exit(Exit_Code::OK);

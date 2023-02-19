@@ -27,8 +27,10 @@ function cultivate_string(&$ln)
 }
 function print_help()
 {
-    echo ("Použití: parse.php [PARAMETR] [VSTUP] \n");
+    echo ("Použití: parse.php [VSTUP] [PARAMETR] \n");
     echo("PHP skript parse.php načítá IPPcode2023 z standartního vstupu, a provede základní lexikální a syntaktická analýzu.\n\n");
+    echo("Korektní kód je vypsán na standartní výstup v XML reprezentaci.\n");
+    echo("V případě nalezení chyby ve vstupním programu je skript ukončen s kódem 23.\n");
     echo("--help \t vypíše na standartní výstup nápovědu \n");
-    exit(0);
+    exit(Exit_Code::OK);
 }
