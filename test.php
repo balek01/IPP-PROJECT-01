@@ -111,9 +111,9 @@ class Tester {
     exec("mkdir -p tmp");
     $this->testDir("", -1);
     echo "\n";
-    $failedStr = $this->failed === 0 ? green("no failed tests") : red("{$this->failed} failed tests");
-    $passedStr = $this->passed === 0 ? red("no passed tests") : green("{$this->passed} passed tests");
-    echo "Tests finished with $failedStr and $passedStr";
+    $failedStr = $this->failed === 0 ? green("no failed tests") : red("{$this->failed} failed tests \n");
+    $passedStr = $this->passed === 0 ? red("no passed tests") : green("{$this->passed} passed tests \n");
+    echo "Tests finished with $failedStr and $passedStr \n";
     exec("rm -r tmp");
   }
 }
