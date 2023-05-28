@@ -1,7 +1,7 @@
 # Implementační dokumentace k 1. úloze do IPP 2022/2023
-Jméno a příjmení: Miroslav Bálek
 
-Login: xbalek02
+Hodnocení 7/8
+ 
  
 
 ### Lexikální a syntaktická analýza
